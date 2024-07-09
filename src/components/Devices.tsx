@@ -22,9 +22,20 @@ export const Devices = () => {
         }
     };
 
-    const onSize = useCallback((size: { width: number; height: number }) => {
-        setSizes((prevSizes) => [...prevSizes, size]);
+    const checkScroll = useCallback(() => {
+        const scroller = ref.current?.querySelector('.section__panel:not(.section__panel_hidden)');
+        if (scroller) {
+            setHasRightScroll(scroller.scrollWidth > scroller.clientWidth);
+        }
     }, []);
+
+    useEffect(() => {
+        checkScroll();
+        window.addEventListener('resize', checkScroll);
+        return () => {
+            window.removeEventListener('resize', checkScroll);
+        };
+    }, [activeTab, checkScroll]);
 
     const TABS_KEYS = useMemo(() => Object.keys(TABS), []);
 
@@ -39,7 +50,9 @@ export const Devices = () => {
     useEffect(() => {
         const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
         const newHasRightScroll = sumWidth > (ref.current?.offsetWidth || 0);
-        setHasRightScroll(newHasRightScroll);
+        if (newHasRightScroll !== hasRightScroll) {
+            setHasRightScroll(newHasRightScroll);
+        }
     }, [sizes]);
 
     return (
@@ -85,7 +98,7 @@ export const Devices = () => {
                     >
                         <ul className="section__panel-list">
                             {TABS[key].items.map((item, index) => (
-                                <Event key={index} {...item} onSize={onSize} />
+                                <Event key={index} {...item} />
                             ))}
                         </ul>
                     </div>

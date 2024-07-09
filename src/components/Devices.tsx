@@ -1,18 +1,45 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { TABS } from '../constants';
 import { Event } from './Event';
 
+for (let i = 0; i < 6; ++i) {
+    TABS.all.items = [...TABS.all.items, ...TABS.all.items];
+}
+const TABS_KEYS = Object.keys(TABS);
+
 export const Devices = () => {
     const ref = useRef<HTMLDivElement | null>(null);
-    const [activeTab, setActiveTab] = useState('all');
+    const initedRef = useRef(false);
+    const [activeTab, setActiveTab] = useState('');
     const [hasRightScroll, setHasRightScroll] = useState(false);
-    const [sizes, setSizes] = useState<{ width: number; height: number }[]>([]);
+
+    useEffect(() => {
+        if (!activeTab && !initedRef.current) {
+            initedRef.current = true;
+            setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
+        }
+    });
 
     const onSelectInput = (event: ChangeEvent<HTMLSelectElement>) => {
         setActiveTab(event.target.value);
     };
 
-    const onArrowCLick = () => {
+    let sizes: Array<{ width: number; height: number }> = [];
+    const onSize = (size: { width: number; height: number }) => {
+        sizes = [...sizes, size];
+    };
+
+    useEffect(() => {
+        const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
+        const sumHeight = sizes.reduce((acc, item) => acc + item.height, 0);
+
+        const newHasRightScroll = sumWidth > (ref.current?.offsetWidth || 0);
+        if (newHasRightScroll !== hasRightScroll) {
+            setHasRightScroll(newHasRightScroll);
+        }
+    }, [sizes]);
+
+    const onArrowClick = () => {
         const scroller = ref.current?.querySelector('.section__panel:not(.section__panel_hidden)');
         if (scroller) {
             scroller.scrollTo({
@@ -21,46 +48,12 @@ export const Devices = () => {
             });
         }
     };
-
-    const checkScroll = useCallback(() => {
-        const scroller = ref.current?.querySelector('.section__panel:not(.section__panel_hidden)');
-        if (scroller) {
-            setHasRightScroll(scroller.scrollWidth > scroller.clientWidth);
-        }
-    }, []);
-
-    useEffect(() => {
-        checkScroll();
-        window.addEventListener('resize', checkScroll);
-        return () => {
-            window.removeEventListener('resize', checkScroll);
-        };
-    }, [activeTab, checkScroll]);
-
-    const TABS_KEYS = useMemo(() => Object.keys(TABS), []);
-
-    useMemo(() => {
-        const newTabs = { ...TABS };
-        for (let i = 0; i < 6; ++i) {
-            newTabs.all.items = [...newTabs.all.items, ...TABS.all.items];
-        }
-        return newTabs;
-    }, []);
-
-    useEffect(() => {
-        const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
-        const newHasRightScroll = sumWidth > (ref.current?.offsetWidth || 0);
-        if (newHasRightScroll !== hasRightScroll) {
-            setHasRightScroll(newHasRightScroll);
-        }
-    }, [sizes]);
-
     return (
         <section className="section main__devices">
             <div className="section__title">
                 <h2 className="section__title-header">Избранные устройства</h2>
 
-                <select className="section__select" defaultValue="all" onInput={onSelectInput}>
+                <select className="section__select" defaultValue="all" onChange={onSelectInput}>
                     {TABS_KEYS.map((key) => (
                         <option key={key} value={key}>
                             {TABS[key].title}
@@ -98,12 +91,12 @@ export const Devices = () => {
                     >
                         <ul className="section__panel-list">
                             {TABS[key].items.map((item, index) => (
-                                <Event key={index} {...item} />
+                                <Event key={index} {...item} onSize={onSize} />
                             ))}
                         </ul>
                     </div>
                 ))}
-                {hasRightScroll && <div className="section__arrow" onClick={onArrowCLick}></div>}
+                {hasRightScroll && <div className="section__arrow" onClick={onArrowClick}></div>}
             </div>
         </section>
     );

@@ -19,6 +19,12 @@ body {
     height: 100%;
 }
 
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .a11y-hidden {
     position: absolute;
     left: auto;

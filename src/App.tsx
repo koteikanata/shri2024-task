@@ -1,14 +1,11 @@
-import { Header } from './components/Header';
 import { Home } from './pages/Home';
-import { Footer } from './components/Footer';
+import { Layout } from './components/Layout';
 
 const App: React.FC = () => {
     return (
-        <>
-            <Header />
+        <Layout>
             <Home />
-            <Footer />
-        </>
+        </Layout>
     );
 };
 

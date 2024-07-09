@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TABS } from '../constants';
 import { Event } from './Event';
 
@@ -22,25 +22,25 @@ export const Devices = () => {
         }
     };
 
-    useEffect(() => {
-        TABS.all.items = [...TABS.all.items, ...TABS.all.items];
+    const onSize = useCallback((size: { width: number; height: number }) => {
+        setSizes((prevSizes) => [...prevSizes, size]);
     }, []);
 
-    const TABS_KEYS = Object.keys(TABS);
+    const TABS_KEYS = useMemo(() => Object.keys(TABS), []);
 
-    const onSize = (size: { width: number; height: number }) => {
-        setSizes((prevSizes) => [...prevSizes, size]);
-    };
+    useMemo(() => {
+        const newTabs = { ...TABS };
+        for (let i = 0; i < 6; ++i) {
+            newTabs.all.items = [...newTabs.all.items, ...TABS.all.items];
+        }
+        return newTabs;
+    }, []);
 
     useEffect(() => {
         const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
-        const sumHeight = sizes.reduce((acc, item) => acc + item.height, 0);
-
         const newHasRightScroll = sumWidth > (ref.current?.offsetWidth || 0);
-        if (newHasRightScroll !== hasRightScroll) {
-            setHasRightScroll(newHasRightScroll);
-        }
-    }, [sizes, hasRightScroll]);
+        setHasRightScroll(newHasRightScroll);
+    }, [sizes]);
 
     return (
         <section className="section main__devices">

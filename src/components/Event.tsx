@@ -12,15 +12,17 @@ interface Props {
 export const Event: React.FC<Props> = (props) => {
     const ref = useRef<HTMLLIElement | null>(null);
 
+    const { onSize } = props;
+
     useEffect(() => {
         if (ref.current) {
             const width = ref.current.offsetWidth;
             const height = ref.current.offsetHeight;
-            if (props.onSize) {
-                props.onSize({ width, height });
+            if (onSize) {
+                onSize({ width, height });
             }
         }
-    }, [props.onSize]);
+    }, [onSize]);
 
     return (
         <li ref={ref} className={`event${props.slim ? ' event_slim' : ''}`}>

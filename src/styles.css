@@ -71,7 +71,7 @@ body {
     height: 100%;
     margin: 0 0 0 auto;
     padding: 0;
-    background: 50% 50% no-repeat transparent url(../public/icon_list_m@1x.svg);
+    background: 50% 50% no-repeat transparent url(./assets/icon_list_m@1x.svg);
     border: none;
     border-radius: 0;
     appearance: none;

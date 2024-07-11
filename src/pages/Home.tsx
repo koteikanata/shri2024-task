@@ -4,12 +4,12 @@ import { Scripts } from '../components/Scripts';
 import { Devices } from '../components/Devices';
 
 export const Home = () => {
-    const initedRef = useRef(false);
+    const initRef = useRef(false);
     const [activeTab, setActiveTab] = useState('');
 
     useEffect(() => {
-        if (!initedRef.current) {
-            initedRef.current = true;
+        if (!initRef.current) {
+            initRef.current = true;
             setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
         }
     }, []);

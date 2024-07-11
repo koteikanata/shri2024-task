@@ -9,13 +9,13 @@ const TABS_KEYS = Object.keys(TABS);
 
 export const Devices = () => {
     const ref = useRef<HTMLDivElement | null>(null);
-    const initedRef = useRef(false);
+    const initRef = useRef(false);
     const [activeTab, setActiveTab] = useState('');
     const [hasRightScroll, setHasRightScroll] = useState(false);
 
     useEffect(() => {
-        if (!activeTab && !initedRef.current) {
-            initedRef.current = true;
+        if (!activeTab && !initRef.current) {
+            initRef.current = true;
             setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
         }
     });

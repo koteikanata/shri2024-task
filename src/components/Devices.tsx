@@ -18,7 +18,7 @@ export const Devices = () => {
             initRef.current = true;
             setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
         }
-    });
+    }, [activeTab]);
 
     const onSelectInput = (event: ChangeEvent<HTMLSelectElement>) => {
         setActiveTab(event.target.value);
@@ -30,14 +30,24 @@ export const Devices = () => {
     };
 
     useEffect(() => {
-        const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
-        const sumHeight = sizes.reduce((acc, item) => acc + item.height, 0);
+        const handleResize = () => {
+            const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
+            const sumHeight = sizes.reduce((acc, item) => acc + item.height, 0);
 
-        const newHasRightScroll = sumWidth > (ref.current?.offsetWidth || 0);
-        if (newHasRightScroll !== hasRightScroll) {
-            setHasRightScroll(newHasRightScroll);
-        }
-    }, [sizes]);
+            const newHasRightScroll = sumWidth > (ref.current?.offsetWidth || 0);
+            if (newHasRightScroll !== hasRightScroll) {
+                requestAnimationFrame(() => {
+                    setHasRightScroll(newHasRightScroll);
+                });
+            }
+        };
+
+        const idleCallback = requestIdleCallback(handleResize);
+
+        return () => {
+            cancelIdleCallback(idleCallback);
+        };
+    }, [sizes, hasRightScroll]);
 
     const onArrowClick = () => {
         const scroller = ref.current?.querySelector('.section__panel:not(.section__panel_hidden)');
@@ -48,6 +58,7 @@ export const Devices = () => {
             });
         }
     };
+
     return (
         <section className="section main__devices">
             <div className="section__title">

@@ -1,10 +1,9 @@
-import { ChangeEvent, lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { TABS } from '../constants';
-// import { Event } from './Event';
-const Event = lazy(() => import('./Event'));
+import { Event } from './Event';
 
 for (let i = 0; i < 6; ++i) {
-    TABS.all.items = [...TABS.all.items, ...TABS.all.items];
+    TABS.all.j = [...TABS.all.j, ...TABS.all.j];
 }
 const TABS_KEYS = Object.keys(TABS);
 
@@ -68,7 +67,7 @@ export const Devices = () => {
                 <select className="section__select" defaultValue="all" onChange={onSelectInput}>
                     {TABS_KEYS.map((key) => (
                         <option key={key} value={key}>
-                            {TABS[key].title}
+                            {TABS[key].i}
                         </option>
                     ))}
                 </select>
@@ -85,31 +84,35 @@ export const Devices = () => {
                             aria-controls={`panel_${key}`}
                             onClick={() => setActiveTab(key)}
                         >
-                            {TABS[key].title}
+                            {TABS[key].i}
                         </li>
                     ))}
                 </ul>
             </div>
 
             <div className="section__panel-wrapper" ref={ref}>
-                {TABS_KEYS.map((key) => (
-                    <div
-                        key={key}
-                        role="tabpanel"
-                        className={'section__panel' + (key === activeTab ? '' : ' section__panel_hidden')}
-                        aria-hidden={key === activeTab ? 'false' : 'true'}
-                        id={`panel_${key}`}
-                        aria-labelledby={`tab_${key}`}
-                    >
-                        <ul className="section__panel-list">
-                            {TABS[key].items.map((item, index) => (
-                                <Suspense fallback={<div>Loading...</div>}>
+                {TABS_KEYS.map((key) => {
+                    if (key !== activeTab) {
+                        return null;
+                    }
+
+                    return (
+                        <div
+                            key={key}
+                            role="tabpanel"
+                            className={'section__panel' + (key === activeTab ? '' : ' section__panel_hidden')}
+                            aria-hidden={key === activeTab ? 'false' : 'true'}
+                            id={`panel_${key}`}
+                            aria-labelledby={`tab_${key}`}
+                        >
+                            <ul className="section__panel-list">
+                                {TABS[key].j.map((item, index) => (
                                     <Event key={index} {...item} onSize={onSize} />
-                                </Suspense>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                })}
                 {hasRightScroll && <div className="section__arrow" onClick={onArrowClick}></div>}
             </div>
         </section>

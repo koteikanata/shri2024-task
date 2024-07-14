@@ -1,5 +1,5 @@
 import React from 'react';
-import Event from './Event';
+import { Event } from './Event';
 
 export const General = React.memo(() => {
     return (
@@ -33,22 +33,22 @@ export const General = React.memo(() => {
                 </div>
                 <ul className="hero-dashboard__schedule">
                     <Event
-                        icon="temp"
-                        iconLabel="Температура"
-                        title="Philips Cooler"
-                        subtitle="Начнет охлаждать в 16:30"
+                        i="temp"
+                        j="Температура"
+                        t="Philips Cooler"
+                        s="Начнет охлаждать в 16:30"
                     />
                     <Event
-                        icon="light"
-                        iconLabel="Освещение"
-                        title="Xiaomi Yeelight LED Smart Bulb"
-                        subtitle="Включится в 17:00"
+                        i="light"
+                        j="Освещение"
+                        t="Xiaomi Yeelight LED Smart Bulb"
+                        s="Включится в 17:00"
                     />
                     <Event
-                        icon="light"
-                        iconLabel="Освещение"
-                        title="Xiaomi Yeelight LED Smart Bulb"
-                        subtitle="Включится в 17:00"
+                        i="light"
+                        j="Освещение"
+                        t="Xiaomi Yeelight LED Smart Bulb"
+                        s="Включится в 17:00"
                     />
                 </ul>
             </div>

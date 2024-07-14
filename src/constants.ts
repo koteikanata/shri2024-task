@@ -1,13 +1,13 @@
 interface TabItem {
-    icon: string;
-    iconLabel: string;
-    title: string;
-    subtitle: string;
+    i: string;
+    j: string;
+    t: string;
+    s: string;
 }
 
 interface Tab {
-    title: string;
-    items: TabItem[];
+    i: string;
+    j: TabItem[];
 }
 
 interface Tabs {
@@ -16,129 +16,129 @@ interface Tabs {
 
 export const TABS: Tabs = {
     all: {
-        title: 'Все',
-        items: [
+        i: 'Все',
+        j: [
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Yeelight LED Smart Bulb',
-                subtitle: 'Включено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Yeelight LED Smart Bulb',
+                s: 'Включено',
             },
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'D-Link Omna 180 Cam',
-                subtitle: 'Включится в 17:00',
+                i: 'light',
+                j: 'Освещение',
+                t: 'D-Link Omna 180 Cam',
+                s: 'Включится в 17:00',
             },
             {
-                icon: 'temp',
-                iconLabel: 'Температура',
-                title: 'Elgato Eve Degree Connected',
-                subtitle: 'Выключено до 17:00',
+                i: 'temp',
+                j: 'Температура',
+                t: 'Elgato Eve Degree Connected',
+                s: 'Выключено до 17:00',
             },
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'LIFX Mini Day & Dusk A60 E27',
-                subtitle: 'Включится в 17:00',
+                i: 'light',
+                j: 'Освещение',
+                t: 'LIFX Mini Day & Dusk A60 E27',
+                s: 'Включится в 17:00',
             },
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Mi Air Purifier 2S',
-                subtitle: 'Включено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Mi Air Purifier 2S',
+                s: 'Включено',
             },
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'Philips Zhirui',
-                subtitle: 'Включено',
+                i: 'light',
+                j: 'Освещение',
+                t: 'Philips Zhirui',
+                s: 'Включено',
             },
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'Philips Zhirui',
-                subtitle: 'Включено',
+                i: 'light',
+                j: 'Освещение',
+                t: 'Philips Zhirui',
+                s: 'Включено',
             },
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Mi Air Purifier 2S',
-                subtitle: 'Включено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Mi Air Purifier 2S',
+                s: 'Включено',
             },
         ],
     },
     kitchen: {
-        title: 'Кухня',
-        items: [
+        i: 'Кухня',
+        j: [
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Yeelight LED Smart Bulb',
-                subtitle: 'Включено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Yeelight LED Smart Bulb',
+                s: 'Включено',
             },
             {
-                icon: 'temp',
-                iconLabel: 'Температура',
-                title: 'Elgato Eve Degree Connected',
-                subtitle: 'Выключено до 17:00',
+                i: 'temp',
+                j: 'Температура',
+                t: 'Elgato Eve Degree Connected',
+                s: 'Выключено до 17:00',
             },
         ],
     },
     hall: {
-        title: 'Зал',
-        items: [
+        i: 'Зал',
+        j: [
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'Philips Zhirui',
-                subtitle: 'Выключено',
+                i: 'light',
+                j: 'Освещение',
+                t: 'Philips Zhirui',
+                s: 'Выключено',
             },
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Mi Air Purifier 2S',
-                subtitle: 'Выключено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Mi Air Purifier 2S',
+                s: 'Выключено',
             },
         ],
     },
     lights: {
-        title: 'Лампочки',
-        items: [
+        i: 'Лампочки',
+        j: [
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'D-Link Omna 180 Cam',
-                subtitle: 'Включится в 17:00',
+                i: 'light',
+                j: 'Освещение',
+                t: 'D-Link Omna 180 Cam',
+                s: 'Включится в 17:00',
             },
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'LIFX Mini Day & Dusk A60 E27',
-                subtitle: 'Включится в 17:00',
+                i: 'light',
+                j: 'Освещение',
+                t: 'LIFX Mini Day & Dusk A60 E27',
+                s: 'Включится в 17:00',
             },
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Mi Air Purifier 2S',
-                subtitle: 'Включено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Mi Air Purifier 2S',
+                s: 'Включено',
             },
             {
-                icon: 'light',
-                iconLabel: 'Освещение',
-                title: 'Philips Zhirui',
-                subtitle: 'Включено',
+                i: 'light',
+                j: 'Освещение',
+                t: 'Philips Zhirui',
+                s: 'Включено',
             },
         ],
     },
     cameras: {
-        title: 'Камеры',
-        items: [
+        i: 'Камеры',
+        j: [
             {
-                icon: 'light2',
-                iconLabel: 'Освещение',
-                title: 'Xiaomi Mi Air Purifier 2S',
-                subtitle: 'Включено',
+                i: 'light2',
+                j: 'Освещение',
+                t: 'Xiaomi Mi Air Purifier 2S',
+                s: 'Включено',
             },
         ],
     },

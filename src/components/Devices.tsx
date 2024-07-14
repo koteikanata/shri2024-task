@@ -1,6 +1,7 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { TABS } from '../constants';
-import { Event } from './Event';
+// import { Event } from './Event';
+const Event = lazy(() => import('./Event'));
 
 for (let i = 0; i < 6; ++i) {
     TABS.all.items = [...TABS.all.items, ...TABS.all.items];
@@ -102,7 +103,9 @@ export const Devices = () => {
                     >
                         <ul className="section__panel-list">
                             {TABS[key].items.map((item, index) => (
-                                <Event key={index} {...item} onSize={onSize} />
+                                <Suspense fallback={<div>Loading...</div>}>
+                                    <Event key={index} {...item} onSize={onSize} />
+                                </Suspense>
                             ))}
                         </ul>
                     </div>

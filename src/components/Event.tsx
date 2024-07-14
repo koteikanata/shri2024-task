@@ -9,7 +9,7 @@ interface Props {
     subtitle?: string;
 }
 
-export const Event: React.FC<Props> = (props) => {
+const Event: React.FC<Props> = (props) => {
     const ref = useRef<HTMLLIElement | null>(null);
 
     const { onSize } = props;
@@ -38,3 +38,5 @@ export const Event: React.FC<Props> = (props) => {
         </li>
     );
 };
+
+export default Event;
